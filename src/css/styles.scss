@@ -1,4 +1,17 @@
+@import 'variables';
 
 body {
-  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+  @include column-flex;
+  background: 6C6685
+}
+
+header {
+  @include column-flex;
+}
+
+.login-box{
+  @include column-flex;
+    width: 200px; 
+    height: 200px;
+    border: 2px solid black;
 }
