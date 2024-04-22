@@ -1,6 +1,7 @@
 import { verifyEntries } from './loginFunctions'
 import { getUserBookings, getRoomInfo } from './bookings'
-import { initialize, customers, rooms, bookings } from './scripts'
+import { initialize } from './scripts'
+import { customers, rooms, bookings } from './data.js'
 
 const unameInput = document.querySelector('.uname');
 const pwordInput = document.querySelector('.pword');
@@ -13,9 +14,13 @@ const totalSpentSection = document.querySelector('total-spent-section')
 const userSidebar = document.querySelector('.user-sidebar');
 const calendarInput = document.querySelector('.calendar');
 const searchButton = document.querySelector('.search-date');
-const loginButton = document.querySelector('.login-button')
-const errorMessage = document.querySelector('.error-message')
+const loginButton = document.querySelector('.login-button');
 
+addEventListener("load", function (){
+  setTimeout(() => {initialize()}, 500);
+});
+
+loginButton.addEventListener("click", logIntoWebsite)
 
 searchButton.addEventListener('click', function() {
   const selectedDate = calendarInput.value.split('-').join('/')
@@ -23,14 +28,7 @@ searchButton.addEventListener('click', function() {
     // searchCalendarDate(selectedDate)
 });
 
-loginButton.addEventListener("click", logIntoWebsite)
-
-addEventListener("load", function (){
-  setTimeout(() => {initialize()}, 500);
-});
-
-export function logIntoWebsite(e){
-    e.preventDefault();
+export function logIntoWebsite(){
     console.log("LOG INTO WEBSITE INITIATED")
     const uname = unameInput.value
     const pword = pwordInput.value
