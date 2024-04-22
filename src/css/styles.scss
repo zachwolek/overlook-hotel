@@ -1,12 +1,19 @@
 @import 'variables';
 
 body {
-  @include column-flex;
-  background: 6C6685
+  @include row-flex;
+  background: 6C6685;
+  margin: 0;
+  padding: 0;
 }
 
 header {
   @include column-flex;
+}
+
+.main-page{
+  @include column-flex;
+  flex: 1;
 }
 
 .login-box{
@@ -14,6 +21,29 @@ header {
     width: 200px; 
     height: 200px;
     border: 2px solid black;
+}
+
+.user-sidebar {
+  @include column-flex;
+  height: 100;
+  flex-basis: 25%;
+  background-color: lightblue;
+}
+
+.user-dashboard {
+  @include column-flex;
+  height: 100vh;
+  flex-basis: 75%;
+}
+
+.user-booking{
+  @include column-flex;
+  width: 400px;
+  height: 200px;
+  font-size: 15px;
+  margin: 15px; 
+  border: 2px solid black;
+  border-radius: 10px;
 }
 
 .hidden {
