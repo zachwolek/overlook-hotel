@@ -1,21 +1,39 @@
 import chai from 'chai';
 const expect = chai.expect;
-import { mockBookings } from './mock-data'
-import { getUserBookings } from '../src/bookings.js'
+import { mockBookings, mockRooms } from './mock-data'
+import { getUserBookings, getRoomInfo } from '../src/bookings.js'
 import { verifyId, verifyLogIn } from '../src/loginFunctions.js';
 
-
-describe("LogIn", () => {
-    describe("Verify the ", () => {
-        it.skip("Should communicate if Username and Password fields are empty", () => {   
-            const entry = verifyId(uname, pword, 51)
-            expect(entry).to.equal("Your username is not in our records") 
+describe("Booking", () => {
+    describe("Room info from a booking", () => {
+         it("should show the room info from the room on the booking", () => {
+            const roomInfo = getRoomInfo(mockRooms, 9)
+            console.log("ROOM INFO :", roomInfo)
+            expect(roomInfo).to.deep.equal({
+                "number": 9,
+                "roomType": "single room",
+                "bidet": true,
+                "bedSize": "queen",
+                "numBeds": 1,
+                "costPerNight": 200.39
+            })
         })
-        it.skip("Should communicate to a guest if the username and password are incorrect")
-            const entry = (verifyLogIn("asdf50", "asdf"))
-            expect(entry).to.equal('Password Incorrect')
+        it("should show the room info for a different booking", () => {
+            const roomInfo = getRoomInfo(mockRooms, 3)
+            console.log("ROOM INFO :", roomInfo)
+            expect(roomInfo).to.deep.equal({
+                "number": 3,
+                "roomType": "single room",
+                "bidet": false,
+                "bedSize": "king",
+                "numBeds": 1,
+                "costPerNight": 491.14
+            })
+        })
     })
 })
+
+
 
 describe("Booking", () => {
     describe("Get bookings for userID", () => {
@@ -52,5 +70,19 @@ describe("Booking", () => {
                 "roomNumber": 7
             }])
         })
+    })
+})
+
+
+describe("LogIn", () => {
+    describe("Verify the ", () => {
+        it("Should communicate if Username and Password fields are empty", () => {   
+            const entry = verifyId(uname, pword, 51)
+            expect(entry).to.equal("Your username is not in our records") 
+        })
+        
+        it("Should communicate to a guest if the username and password are incorrect")
+            const entry = (verifyLogIn("asdf50", "asdf"))
+            expect(entry).to.equal(true)
     })
 })
