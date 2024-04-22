@@ -7,8 +7,9 @@
   <title>Overlook Hotel</title>
 </head>
 <body>
-  <header class="header"> OVERLOOK HOTEL
-    <h1 class="subheader"> YOU'LL LOVE IT HERE</h1>
+  <header class="header">OVERLOOK HOTEL
+    <h1 class="subheader">YOU'LL LOVE IT HERE</h1>
+    <h2 class="error-message hidden"></h2>
   </header>
   <div class="login-box">LOGIN BOX
     <label for="uname">Username</label>
@@ -17,6 +18,12 @@
     <input class='pword' type="password" placeholder="Password" name="password" required>
     <button class='login-button' type="submit">Login</button>
     <div class='login-status'>TEST</div>
+  </div>
+  <div class="user-dashboard hidden">
+    <p>NEEDED:</p>
+    <p>STAYS</p>
+    <p>AMOUNT SPENT</p>
+    <p>BOOK A ROOM?</p>
   </div>
 
 <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->

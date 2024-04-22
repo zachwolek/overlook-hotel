@@ -1,31 +1,31 @@
-
-
-const fetchCustomers = "http://localhost:3001/api/v1/customers"
-
 //Get All Customers
-fetch("http://localhost:3001/api/v1/customers")
-  .then((response) => response.json())
-//   .then((result) => console.log(result))
-//   .catch((error) => console.error(error));
+export function fetchCustomers() {
+    return fetch("http://localhost:3001/api/v1/customers")
+        .then((response) => response.json())
+        .then((data) => data.customers)
+}
 
 //Get a specific customer
-fetch(`${fetchCustomers}/${userID}`)
-  .then((response) => response.json())
-//   .then((result) => console.log(result))
-//   .catch((error) => console.error(error));
+export function fetchUser(){
+    return fetch(`${fetchCustomersURL}/${userID}`)
+        .then((response) => response.json())
+} 
 
 //Get all rooms
-fetch("http://localhost:3001/api/v1/rooms")
-  .then((response) => response.json())
-//   .then((result) => console.log(result))
-//   .catch((error) => console.error(error));
-http://localhost:3001/api/v1/rooms
+export function fetchRooms(){
+    return fetch("http://localhost:3001/api/v1/rooms")
+        .then((response) => response.json())
+        .then((data) => data.rooms)
+}
+
 
 //Get all bookings
-fetch("http://localhost:3001/api/v1/bookings")
-  .then((response) => response.json())
-//   .then((result) => console.log(result))
-//   .catch((error) => console.error(error));
+export function fetchBookings(){
+    return fetch("http://localhost:3001/api/v1/bookings")
+        .then((response) => response.json())
+        .then((data) => data.bookings)
+}
+
 
 
 
