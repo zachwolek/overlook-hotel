@@ -30,11 +30,17 @@ header {
   background-color: lightblue;
 }
 
+.room-types{
+  @include column-flex;
+  align-items: flex-start; 
+  justify-content: flex-start; 
+}
+
 .user-dashboard {
   @include column-flex;
   height: 100vh;
   flex-basis: 75%;
-}
+} 
 
 .user-booking{
   @include column-flex;
