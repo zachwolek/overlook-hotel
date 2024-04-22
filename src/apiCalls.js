@@ -5,11 +5,11 @@ export function fetchCustomers() {
         .then((data) => data.customers)
 }
 
-//Get a specific customer
-export function fetchUser(){
-    return fetch(`${fetchCustomersURL}/${userID}`)
-        .then((response) => response.json())
-} 
+// //Get a specific customer
+// export function fetchUser(){
+//     return fetch(`${fetchCustomersURL}/${userID}`)
+//         .then((response) => response.json())
+// } 
 
 //Get all rooms
 export function fetchRooms(){

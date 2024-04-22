@@ -1,4 +1,4 @@
-import { customers, rooms, bookings } from './scripts'
+import { customers, rooms, bookings } from './data'
 
 
 export function verifyEntries(uname, pword, userId){
