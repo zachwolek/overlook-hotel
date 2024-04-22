@@ -15,18 +15,33 @@ const userSidebar = document.querySelector('.user-sidebar');
 const calendarInput = document.querySelector('.calendar');
 const searchButton = document.querySelector('.search-date');
 const loginButton = document.querySelector('.login-button');
+const resSuiteBox = document.querySelector('#residential-suit-box')
+const suiteBox = document.querySelector('#suite-box')
+const singleRoomBox = document.querySelector('#single-room-box')
+const jrSuiteBox = document.querySelector('#junior-suite-box')
+
+const checkboxes = [resSuiteBox, suiteBox, singleRoomBox, jrSuiteBox]
 
 addEventListener("load", function (){
   setTimeout(() => {initialize()}, 500);
 });
 
 loginButton.addEventListener("click", logIntoWebsite)
-
 searchButton.addEventListener('click', function() {
   const selectedDate = calendarInput.value.split('-').join('/')
+  let selectedRooms = []
+  checkboxes.forEach(checkbox => {
+    if(checkbox.checked){
+      selectedRooms.push(checkbox.value)
+    }
+    return selectedRooms
+  })
+  console.log("SELECTED ROOMS:", selectedRooms)
   console.log("SELECTED DATE", selectedDate)
     // searchCalendarDate(selectedDate)
 });
+
+
 
 export function logIntoWebsite(){
     console.log("LOG INTO WEBSITE INITIATED")
@@ -45,6 +60,7 @@ export function logIntoWebsite(){
     loginStatusBox.innerText=`${logInStatus}`
 }
 
+let totalSpent = 0
 function viewUserDashBoard(bookings, userBookings){
     loginBox.classList.add('hidden')
     userDash.classList.remove('hidden')
@@ -59,6 +75,7 @@ function viewUserDashBoard(bookings, userBookings){
             <p class="cost-per-night">COST PER NIGHT $${roomInfo.costPerNight}</p>
           </div>
         `;
+        totalSpent += roomInfo.costPerNight
         previousStaysSection.innerHTML += cardHTML;
       });
 }
