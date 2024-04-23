@@ -3,6 +3,7 @@ import { getUserBookings, getRoomInfo } from './bookings'
 import { initialize } from './scripts'
 import { customers, rooms, bookings } from './data.js'
 import { searchAvailableRooms } from './calendarFunctions.js'
+import { postBooking } from './apiCalls.js'
 
 const unameInput = document.querySelector('.uname');
 const pwordInput = document.querySelector('.pword');
@@ -24,14 +25,16 @@ const dashboardHeader = document.querySelector(".dashboard-header");
 const availRoomsSection = document.querySelector(".avail-rooms-section");
 const availRoomsDashboard = document.querySelector(".avail-rooms-dashboard");
 const availRoomsHeader = document.querySelector('.avail-rooms-header');
-
 const checkboxes = [resSuiteBox, suiteBox, singleRoomBox, jrSuiteBox]
-
 addEventListener("load", function (){
   setTimeout(() => {initialize()}, 500);
 });
 
+let currentUserId
+let currentUserBookings
+
 loginButton.addEventListener("click", logIntoWebsite)
+
 searchButton.addEventListener('click', function() {
   const selectedDate = calendarInput.value.split('-').join('/')
   let selectedRooms = []
@@ -53,6 +56,21 @@ searchButton.addEventListener('click', function() {
   }
 });
 
+availRoomsSection.addEventListener('click', function(e) {
+  if (e.target.classList.contains('book-room')) {
+      const bookingId = e.target.closest('.available-room').id;
+      const roomNumDate = bookingId.split('-')
+      const currentRoom = parseInt(roomNumDate[0])
+      const currentDate = roomNumDate[1]
+      postBooking(currentUserId, currentDate, currentRoom)
+      .then(newBooking => {
+        currentUserBookings.push(newBooking);
+        bookings.push(newBooking);
+        viewUserDashBoard(currentUserBookings)
+      })
+  }
+});
+
 export function logIntoWebsite(){
     console.log("LOG INTO WEBSITE INITIATED")
     const uname = unameInput.value;
@@ -61,20 +79,22 @@ export function logIntoWebsite(){
     const userInfo = customers.find(customer => customer["id"] === userId)
     const logInStatus = verifyEntries(uname, pword, userId);
     if (logInStatus === true){
-        dashboardHeader.innerText=`Welcome Guest ${userInfo['name']}! We love you ${userInfo['name']}`
-        console.log("USER ID: ", userId) 
-        const userBookings = getUserBookings(bookings, userId)
-        const availableRooms = viewUserDashBoard(bookings, userBookings)
-        console.log("AVAILABLE ROOMS: ", availableRooms)
+        dashboardHeader.innerText=`Welcome ${userInfo['name']}! We love you ${userInfo['name']}!`;
+        console.log("USER ID: ", userId) ;
+        currentUserBookings = getUserBookings(bookings, userId);
+        const availableRooms = viewUserDashBoard(currentUserBookings);
+        console.log("AVAILABLE ROOMS: ", availableRooms);
+        currentUserId = userId
     } 
     loginStatusBox.innerText=`${logInStatus}`
 }
 
-let totalSpent = 0
-function viewUserDashBoard(bookings, userBookings){
+function viewUserDashBoard(userBookings){
+  let totalSpent = 0
     loginBox.classList.add('hidden')
     userDash.classList.remove('hidden')
     userSidebar.classList.remove('hidden')
+    availRoomsDashboard.classList.add('hidden')
     userBookings.forEach((booking) => {
     const roomInfo = getRoomInfo(rooms, booking.roomNumber)
         const cardHTML = `
@@ -98,18 +118,22 @@ function populateRequestedRooms(availableRooms, selectedDate){
     availRoomsSection.innerHTML=""
     availRoomsHeader.innerText = `Available Rooms for ${selectedDate}`;
     availableRooms.forEach((room) => {
+      let bidetStatus;
+      if(room['bidet'] === true){
+        bidetStatus = "Yes"
+      } else {
+          bidetStatus = "No"
+      }
       const roomHTML = `
-        <div class="available-room" id="${room['number']}-${selectedDate}}">
-          <p class="room-type">Room Type: ${room['roomType'].toUpperCase()}</p>
-          <p class="amenities">Bidet: ${room['bidet']}, Beds: ${room['numBeds']}, Bed Size: ${room['bedSize']}
-          </p>
-          <p class="room-number">Room Number: ${room['number']}</p>
-          <p class="cost-per-night">Cost Per Night: ${room['costPerNight']}</p>
+        <div class="available-room" id="${room['number']}-${selectedDate}">
+          <span class="room-type">Room Type: ${room['roomType'].toUpperCase()}</span>
+          <span class="amenities">Bidet: ${bidetStatus}, Beds: ${room['numBeds']}, Bed Size: ${room['bedSize']}
+          </span>
+          <span class="room-number">Room Number: ${room['number']}</span>
+          <span class="cost-per-night">Cost Per Night: ${room['costPerNight']}</span>
+          <button class="book-room">Book Room!</button>
         </div>
-        <button class="book-room">Book Room!</button>
       `;
       availRoomsSection.innerHTML += roomHTML;
     });
 }
-
-//if (unameInput.value === "customer50" && pwordInput.value == "overlook2021")

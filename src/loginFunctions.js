@@ -24,7 +24,7 @@ export function verifyId(uname, pword, userId){
 
 export function verifyLogIn(uname, pword){
     console.log("VERIFY LOG IN INITIATED")
-    if (uname === "asdf50" && pword == "asdf"){
+    if (uname === "asdf5" && pword == "asdf"){
         return true
     } else {
         return 'Password Incorrect'

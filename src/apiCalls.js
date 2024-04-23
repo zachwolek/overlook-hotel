@@ -5,12 +5,6 @@ export function fetchCustomers() {
         .then((data) => data.customers)
 }
 
-// //Get a specific customer
-// export function fetchUser(){
-//     return fetch(`${fetchCustomersURL}/${userID}`)
-//         .then((response) => response.json())
-// } 
-
 //Get all rooms
 export function fetchRooms(){
     return fetch("http://localhost:3001/api/v1/rooms")
@@ -26,27 +20,35 @@ export function fetchBookings(){
         .then((data) => data.bookings)
 }
 
+export function postBooking(id, date, roomNumber) {
+    return fetch('http://localhost:3001/api/v1/bookings', {
+        method: 'POST',
+        body: JSON.stringify({
+        "userID": id,
+        "date": date,
+        "roomNumber": roomNumber
+	}),
+	headers: {
+		'Content-Type': 'application/json'
+	}
+})
+.then(resp => resp.json())
+.then(data => data.newBooking)
+}
 
+// POST Booking
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
 
+const raw = JSON.stringify({
+  "userID": 48,
+  "date": "2019/09/23",
+  "roomNumber": 4
+});
 
-//POST Booking
-// const myHeaders = new Headers();
-// myHeaders.append("Content-Type", "application/json");
-
-// const raw = JSON.stringify({
-//   "userID": 48,
-//   "date": "2019/09/23",
-//   "roomNumber": 4
-// });
-
-// const requestOptions = {
-//   method: "POST",
-//   headers: myHeaders,
-//   body: raw,
-//   redirect: "follow"
-// };
-
-// fetch("http://localhost:3001/api/v1/bookings", requestOptions)
-//   .then((response) => response.text())
-//   .then((result) => console.log(result))
-//   .catch((error) => console.error(error));
+const requestOptions = {
+  method: "POST",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow"
+};

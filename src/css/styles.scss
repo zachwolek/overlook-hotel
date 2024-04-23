@@ -52,12 +52,17 @@ header {
   margin: 15px; 
   border: 2px solid black;
   border-radius: 10px;
+  padding: 10px;
 }
 
 .available-room {
   background-color: lightcyan;
   font-weight: bold;
-  font-size: 15px;
+}
+
+.available-room .book-room {
+  margin-top: auto;
+  padding: 8px 16px; 
 }
 
 .hidden {
