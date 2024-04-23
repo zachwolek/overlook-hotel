@@ -7,7 +7,6 @@ const unameInput = document.querySelector('.uname');
 const pwordInput = document.querySelector('.pword');
 const loginStatusBox = document.querySelector('.login-status');
 const loginBox = document.querySelector('.login-box');
-const subheader = document.querySelector('.subheader');
 const userDash = document.querySelector('.user-dashboard');
 const previousStaysSection = document.querySelector('.previous-stays-section')
 const totalSpentSection = document.querySelector('total-spent-section')
@@ -38,7 +37,9 @@ searchButton.addEventListener('click', function() {
   })
   console.log("SELECTED ROOMS:", selectedRooms)
   console.log("SELECTED DATE", selectedDate)
-    // searchCalendarDate(selectedDate)
+    // searchAvailableRooms(selectedDate, selectedRooms, bookings, rooms)
+    //this will return available rooms for this date
+    //you will need to attach the date data to this array
 });
 
 
