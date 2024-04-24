@@ -86,7 +86,7 @@ describe("LogIn", () => {
         })
 
         it("Should allow access if the username and password are correct", () => {
-            const entry = verifyLogIn("asdf50", "asdf")
+            const entry = verifyLogIn("customer50", "overlook2021")
             expect(entry).to.equal(true)
         })
     })

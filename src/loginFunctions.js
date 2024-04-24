@@ -22,7 +22,7 @@ export function verifyId(uname, pword, userId){
 }
 
 export function verifyLogIn(uname, pword){
-    if (uname === "asdf50" && pword == "asdf"){
+    if (uname === "customer50" && pword == "overlook2021"){
         return true
     } else {
         return 'Password Incorrect'

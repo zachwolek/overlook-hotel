@@ -5,12 +5,14 @@ body {
   background: 6C6685;
   margin: 0;
   padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 header {
   @include column-flex;
   font-size: 36px;
   margin: 15px;
+  padding: 15px;
 }
 
 .subheader {
@@ -27,13 +29,40 @@ header {
     width: 200px; 
     height: 200px;
     border: 2px solid black;
+    padding: 20px
+}
+
+.sign-in{
+  @include column-flex;
+  padding: 20px;
+}
+
+.homescreen-side-image {
+  @include row-flex;
+  width: 40%;
+  height: auto;
+  height: 100vh;
+  border-right: 2px solid black;
 }
 
 .user-sidebar {
   @include column-flex;
-  height: 100vh;
+  height: 100;
   flex-basis: 25%;
   background-color: lightblue;
+}
+
+.event-section{
+  @include column-flex
+}
+
+.points-description {
+  margin-bottom: 15px;
+}
+
+.search-status-box {
+  font-weight: bold;
+  background-color: #C24E77
 }
 
 .room-types{
@@ -54,7 +83,7 @@ header {
   @include column-flex;
   width: 400px;
   height: 200px;
-  font-size: 15px;
+  font-size: 20px;
   margin: 15px; 
   border: 2px solid black;
   border-radius: 10px;
@@ -73,9 +102,4 @@ header {
 
 .hidden {
   display: none;
-}
-
-.error-message {
-  color: maroon;
-  border: 2px solid red;
 }
