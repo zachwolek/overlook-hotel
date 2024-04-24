@@ -25,6 +25,7 @@ const dashboardHeader = document.querySelector(".dashboard-header");
 const availRoomsSection = document.querySelector(".avail-rooms-section");
 const availRoomsDashboard = document.querySelector(".avail-rooms-dashboard");
 const availRoomsHeader = document.querySelector('.avail-rooms-header');
+const subheader = document.querySelector('.subheader')
 
 addEventListener("load", function (){
   setTimeout(() => {initialize()}, 500);
@@ -68,8 +69,11 @@ availRoomsSection.addEventListener('click', function(e) {
       .then(newBooking => {
         currentUserBookings.push(newBooking);
         bookings.push(newBooking);
+        console.log(newBooking)
         viewUserDashBoard(currentUserBookings)
+        dashboardHeader.innerText=`Reservation Received!`
       })
+      .catch((error) => alert(`We apologize for error ${error}`))
   }
 });
 
@@ -80,7 +84,7 @@ export function logIntoWebsite(){
     const userInfo = customers.find(customer => customer["id"] === userId)
     const logInStatus = verifyEntries(uname, pword, userId);
     if (logInStatus === true){
-        dashboardHeader.innerText=`Welcome ${userInfo['name']}!`;
+        dashboardHeader.innerText=`Welcome back ${userInfo['name']}!`;
         currentUserBookings = getUserBookings(bookings, userId);
         viewUserDashBoard(currentUserBookings);
         currentUserId = userId
@@ -91,6 +95,7 @@ export function logIntoWebsite(){
 function viewUserDashBoard(userBookings){
   let totalSpent = 0
     loginBox.classList.add('hidden')
+    subheader.classList.add('hidden')
     userDash.classList.remove('hidden')
     userSidebar.classList.remove('hidden')
     availRoomsDashboard.classList.add('hidden')
@@ -99,9 +104,9 @@ function viewUserDashBoard(userBookings){
         const cardHTML = `
           <div class="user-booking" id="${booking.id}">
             <p class="booking-date">Date: ${booking.date}</p>
-            <p class="room-type">ROOM TYPE: ${roomInfo.roomType.toUpperCase()}</p>
-            <p class="bed-number">NUMBER OF BEDS: ${roomInfo.numBeds}</p>
-            <p class="cost-per-night">COST PER NIGHT $${roomInfo.costPerNight}</p>
+            <span class="room-type">Room Type: ${roomInfo.roomType.toUpperCase()}</span>
+            <span class="bed-number">Number Of Beds: ${roomInfo.numBeds}</span>
+            <p class="cost-per-night">Cost Per Night: $${roomInfo.costPerNight}</p>
           </div>
         `;
         totalSpent += roomInfo.costPerNight
@@ -128,7 +133,7 @@ function populateRequestedRooms(availableRooms, selectedDate){
           <span class="amenities">Bidet: ${bidetStatus}, Beds: ${room['numBeds']}, Bed Size: ${room['bedSize']}
           </span>
           <span class="room-number">Room Number: ${room['number']}</span>
-          <span class="cost-per-night">Cost Per Night: ${room['costPerNight']}</span>
+          <p class="cost-per-night">Cost Per Night: ${room['costPerNight']}</p>
           <button class="book-room">Book Room!</button>
         </div>
       `;
@@ -139,5 +144,5 @@ function populateRequestedRooms(availableRooms, selectedDate){
 function alertNoRooms(){
   userDash.classList.add("hidden")
   availRoomsDashboard.classList.remove("hidden")
-  availRoomsSection.innerHTML="We apologize no rooms available"
+  availRoomsSection.innerHTML=`<h3>We profusely apologize as there no rooms available</h3>`
 }

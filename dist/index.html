@@ -5,14 +5,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Overlook Hotel</title>
+  <meta name="description" content="Welcome to the Overlook Hotel, where you can view previous stays and book a new room">
 </head>
 <body>
+  <!-- <img class="homescreen-side-image" src="blair-roberts-castagnetta-Ux_Y9a_eTMU-unsplash.jpg" alt="A hotel guest enjoying a beautiful afternoon on our courtyard"> -->
   <section class="user-sidebar hidden">
     <div class="calendar-container">
       <h1>Choose a Date</h1>
       <div id="event-section">
-        <input type="date" class="calendar">
-        <button class="search-date">Search Rooms</button>
+          <label for="calendar">Choose a Date:</label>
+          <input type="date" id="calendar" class="calendar">
+          <button class="search-date">Search Rooms</button>
         <div class="room-types">
           <label><input type="checkbox" value="residential suite" id="residential-suit-box" checked>Residential Suite</label>
           <label><input type="checkbox" value="suite" id="suite-box" checked>Suite</label>
@@ -27,26 +30,29 @@
       <header class="header">OVERLOOK HOTEL
         <h1 class="subheader">Ghost free since 2022</h1>
       </header>
-      <container class="login-box">LOGIN BOX
-        <label for="uname">Username</label>
-        <input class='uname' type="text" placeholder="Username" name="uname" required>
-        <label for="pword">Password</label>
-        <input class='pword' type="password" placeholder="Password" name="password" required>
+      <container class="login-box"><b>Welcome!</b>
+        <div class="sign-in">
+          <label for="uname">Username</label>
+          <input class='uname' type="text" placeholder="Username" name="uname" id="uname" aria-label="Username" required>
+          <label for="pword">Password</label>
+          <input class='pword' type="password" placeholder="Password" name="password" id="pword" aria-label="Password" required>
+        </div>
         <button class='login-button' type="submit">Login</button>
         <div class='login-status'></div>
       </container>
     <main class="user-dashboard hidden">
-      <h1 class="dashboard-header"></h1>
-      <h2 class="total-spent-section"></h2>
-      <h3>*Every $100 spent is 1 Overlook Point!</h3>
+      <h1 class="dashboard-header">Welcome!</h1>
+      <h2 class="total-spent-section">Total Spent:</h2>
+      <span class="points-description">*Every $100 spent is 1 Overlook Point!</span>
+      <h3>Previous stays:</h3>
       <div class="previous-stays-section"></div>
     </main>
     <main class="avail-rooms-dashboard hidden">
-      <h1 class="avail-rooms-header"></h1>
+      <h1 class="avail-rooms-header">Available Rooms:</h1>
       <div class="avail-rooms-section"></div>
     </main>   
   </section>  
-
+  <div class="background-image"></div>
 <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
 <script src="bundle.js"></script>
 </body>  
