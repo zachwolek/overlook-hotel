@@ -47,7 +47,7 @@ header {
 
 .user-sidebar {
   @include column-flex;
-  height: 100;
+  height: 100vh;
   flex-basis: 25%;
   background-color: lightblue;
 }
@@ -74,7 +74,7 @@ header {
 .user-dashboard,
 .avail-rooms-dashboard {
   @include column-flex;
-  height: 100vh;
+  height: 100;
   flex-basis: 75%;
 } 
 
