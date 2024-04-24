@@ -1,10 +1,10 @@
 
 
 export function searchAvailableRooms(date, selectedRoomsTypes, allBookings, allRooms){
-    let reservedRooms = filterReservedRooms(date, allBookings)
-    let reservedRoomNumbers = mapRoomNumbers(reservedRooms)
-    let availableRooms = filterAvailableRooms(reservedRoomNumbers, allRooms)
-    let filteredRooms = filterRoomByType(selectedRoomsTypes, availableRooms)
+    let reservedRooms = filterReservedRooms(date, allBookings);
+    let reservedRoomNumbers = mapRoomNumbers(reservedRooms);
+    let availableRooms = filterAvailableRooms(reservedRoomNumbers, allRooms);
+    let filteredRooms = filterRoomByType(selectedRoomsTypes, availableRooms);
     return filteredRooms
 }
 
