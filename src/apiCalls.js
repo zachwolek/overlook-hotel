@@ -34,21 +34,5 @@ export function postBooking(id, date, roomNumber) {
 })
 .then(resp => resp.json())
 .then(data => data.newBooking)
+.catch()
 }
-
-// POST Booking
-const myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-const raw = JSON.stringify({
-  "userID": 48,
-  "date": "2019/09/23",
-  "roomNumber": 4
-});
-
-const requestOptions = {
-  method: "POST",
-  headers: myHeaders,
-  body: raw,
-  redirect: "follow"
-};

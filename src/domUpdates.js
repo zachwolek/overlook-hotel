@@ -25,11 +25,12 @@ const dashboardHeader = document.querySelector(".dashboard-header");
 const availRoomsSection = document.querySelector(".avail-rooms-section");
 const availRoomsDashboard = document.querySelector(".avail-rooms-dashboard");
 const availRoomsHeader = document.querySelector('.avail-rooms-header');
-const checkboxes = [resSuiteBox, suiteBox, singleRoomBox, jrSuiteBox]
+
 addEventListener("load", function (){
   setTimeout(() => {initialize()}, 500);
 });
 
+const checkboxes = [resSuiteBox, suiteBox, singleRoomBox, jrSuiteBox]
 let currentUserId
 let currentUserBookings
 
@@ -44,15 +45,16 @@ searchButton.addEventListener('click', function() {
     }
     return selectedRooms
   })
-  console.log("SELECTED ROOMS:", selectedRooms)
-  console.log("SELECTED DATE", selectedDate)
   if (selectedRooms.length === 0 || selectedDate.length === 0){
     searchStatusBox.innerText="Please enter a valid room date and room type"
   } else {
     searchStatusBox.innerText=""
   const availableRooms = searchAvailableRooms(selectedDate, selectedRooms, bookings, rooms)
-  console.log(availableRooms)
+    if (availableRooms.length === 0){
+      alertNoRooms()
+    } else {
   populateRequestedRooms(availableRooms, selectedDate)
+    }
   }
 });
 
@@ -72,18 +74,15 @@ availRoomsSection.addEventListener('click', function(e) {
 });
 
 export function logIntoWebsite(){
-    console.log("LOG INTO WEBSITE INITIATED")
     const uname = unameInput.value;
     const pword = pwordInput.value;
     const userId = parseInt(uname.match(/\d+/));
     const userInfo = customers.find(customer => customer["id"] === userId)
     const logInStatus = verifyEntries(uname, pword, userId);
     if (logInStatus === true){
-        dashboardHeader.innerText=`Welcome ${userInfo['name']}! We love you ${userInfo['name']}!`;
-        console.log("USER ID: ", userId) ;
+        dashboardHeader.innerText=`Welcome ${userInfo['name']}!`;
         currentUserBookings = getUserBookings(bookings, userId);
-        const availableRooms = viewUserDashBoard(currentUserBookings);
-        console.log("AVAILABLE ROOMS: ", availableRooms);
+        viewUserDashBoard(currentUserBookings);
         currentUserId = userId
     } 
     loginStatusBox.innerText=`${logInStatus}`
@@ -109,7 +108,6 @@ function viewUserDashBoard(userBookings){
         previousStaysSection.innerHTML += cardHTML;
       });
       totalSpentSection.innerText=`Total Rewards Points: ${(totalSpent / 100).toFixed(2)}`
-      console.log("TOTAL SPENT: ", totalSpent)
 }
 
 function populateRequestedRooms(availableRooms, selectedDate){
@@ -126,7 +124,7 @@ function populateRequestedRooms(availableRooms, selectedDate){
       }
       const roomHTML = `
         <div class="available-room" id="${room['number']}-${selectedDate}">
-          <span class="room-type">Room Type: ${room['roomType'].toUpperCase()}</span>
+          <p class="room-type">Room Type: ${room['roomType'].toUpperCase()}</p>
           <span class="amenities">Bidet: ${bidetStatus}, Beds: ${room['numBeds']}, Bed Size: ${room['bedSize']}
           </span>
           <span class="room-number">Room Number: ${room['number']}</span>
@@ -136,4 +134,10 @@ function populateRequestedRooms(availableRooms, selectedDate){
       `;
       availRoomsSection.innerHTML += roomHTML;
     });
+}
+
+function alertNoRooms(){
+  userDash.classList.add("hidden")
+  availRoomsDashboard.classList.remove("hidden")
+  availRoomsSection.innerHTML="We apologize no rooms available"
 }
